@@ -11,12 +11,12 @@
 <h5>
 <center>
 
-<form action="insertCatData">
+<form action="${pageContext.request.contextPath}/insertCatData">
 
 
-CATEGORYTID : <input type="number" name="cid"><br><br>
+CATEGORYTID : <input type="number" name="cid" required><br><br>
 
-CATEGORYNAME : <input type="text" name="cname"><br><br>
+CATEGORYNAME : <input type="text" name="cname" required><br><br>
 
 <input type="submit" name="option" value="Insert">
 &nbsp;&nbsp;

@@ -10,11 +10,11 @@
 <h5>
 <center>
 
-<form action="insertData">
+<form action="${pageContext.request.contextPath}/insertData">
 
-SUPPLIERID : <input type="number" name="sid"><br><br>
+SUPPLIERID : <input type="number" name="sid" required><br><br>
 
-SUPPLIERNAME : <input type="text" name="sname"><br><br>
+SUPPLIERNAME : <input type="text" name="sname" required><br><br>
 
 <input type="submit" name="option" value="Insert">
 &nbsp;&nbsp;

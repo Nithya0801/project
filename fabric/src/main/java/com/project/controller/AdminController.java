@@ -61,7 +61,7 @@ public class AdminController {
 		}
 		else
 		{
-			return new ModelAndView("adminadd");
+			return new ModelAndView("admin/adminadd");
 		}
 	}
 	
@@ -70,13 +70,14 @@ public class AdminController {
 	@RequestMapping("/getAllSupp")
 	public ModelAndView viewSupp(HttpServletRequest request)
 	{
+		System.out.println("inside...");
 		List<Supplier> l=supplierDao.getAll();
 		request.getSession().setAttribute("obj1",l);
-		return new ModelAndView("/retriveSupp");
+		return new ModelAndView("retriveSupp");
 	}
 	
 	
-	@RequestMapping("/retriveSupp")
+	@RequestMapping("retriveSupp")
 	public ModelAndView retrieveSupp()
 	{
 		return new ModelAndView("/retriveSupp");
@@ -90,7 +91,7 @@ public class AdminController {
 		//request.getSession().setAttribute("sid",i);
 		Supplier supplier=supplierDao.getSupplierById(i);
 		request.getSession().setAttribute("supplier",supplier);
-		return new ModelAndView("updateSupp");
+		return new ModelAndView("/updateSupp");
 	}
 	
 	@RequestMapping("/updateAll")
@@ -154,10 +155,10 @@ public class AdminController {
 		return new ModelAndView("retrieveCat");
 	}
 	
-	@RequestMapping("/retrieveCat")
+	@RequestMapping("retrieveCat")
 	public ModelAndView viewCat()
 	{
-		return new ModelAndView("retrieveCat");
+		return new ModelAndView("/retrieveCat");
 	}
 	
 	@RequestMapping("/updateCat")
@@ -286,10 +287,10 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("/reteriveProd")
+	@RequestMapping("reteriveProd")
 	public ModelAndView getAll()
 	{
-		return new ModelAndView("reteriveProd");
+		return new ModelAndView("/reteriveProd");
 	}
 
 }

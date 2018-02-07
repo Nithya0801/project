@@ -8,6 +8,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 
 <style>
@@ -63,14 +67,14 @@ body {
 	<br>
 	<br>
 
-	<a href="getAllUser"> User Details</a>|
-	<a href="getAllSupp">Supplier Details</a>|
-	<a href="getAllCat">Category Details</a>|
-	<a href="getAllProduct">Product Details</a>|
+	<a href="${pageContext.request.contextPath}/getAllUser"> User Details</a>|
+	<a href="${pageContext.request.contextPath}/getAllSupp">Supplier Details</a>|
+	<a href="${pageContext.request.contextPath}/getAllCat">Category Details</a>|
+	<a href="${pageContext.request.contextPath}/getAllProduct">Product Details</a>|
 	<br>
 	<br>
 	<br>
-	<center>
+<%-- 	<!--<center>
 		<div class="tab">
 			<button class="tablinks" onclick="openCity(event, 'Product')">Product</button>
 			<button class="tablinks" onclick="openCity(event, 'Category')">Category</button>
@@ -100,11 +104,11 @@ List<Category> category=(List<Category>)request.getAttribute("categories");
 
 %>
 
-					Product Name : <input type="text" name="pname" /><br>
-					<br> Product Description : <input type="text" name="desc" /><br>
-					<br> Product Price : <input type="number" name="price" /><br>
-					<br> Product Stock : <input type="number" name="stock" /><br>
-					<br> Category List:<select name="cat">
+					Product Name : <input type="text" name="pname" required/><br>
+					<br> Product Description : <input type="text" name="desc" required/><br>
+					<br> Product Price : <input type="number" name="price" required/><br>
+					<br> Product Stock : <input type="number" name="stock" required/><br>
+					<br> Category List:<select name="cat" required>
 						<option>-----Category List----</option>		
 						<% for(Category c:category){%>
 						
@@ -112,28 +116,28 @@ List<Category> category=(List<Category>)request.getAttribute("categories");
 						
 						<%} %>
 
-					</select> Supplier List:<select name="sup">
+					</select> Supplier List:<select name="sup" required>
 						<option>-----Supplier List----</option>
 					   <% for(Supplier s:suppliers){ %>
 					   
 					   <option value="<%=s.getSid()%>"><%=s.getSname() %></option>
 					   <%} %>
 					</select><br>
-					<br> Image File: <input type="file" name="file" /> 
+					<br> Image File: <input type="file" name="file" required/> 
 					<!-- <inputtype="submit" value="Upload File" /> <br> <br> -->
 					
 					
 					
-					<input type="submit" value="insert" />
+			<!-- 		<input type="submit" value="insert" />
 
-				</form>
+				</form> -->
 
 	
 
 
 			<!-- <@page import="java.util.*" %>
 
-<%--<% List<String> ll=(List<String>)request.getSession().getAttribute("categoryName");
+<% List<String> ll=(List<String>)request.getSession().getAttribute("categoryName");
 
    List<String> ls=(List<String>) request.getSession().getAttribute("supplierName");
 %>
@@ -158,7 +162,7 @@ Category List:<select name="cat">
 %>
 	<option value="<%=v%>"><%=v%></option>
 	
-	<%} %>--%>
+	<%} %>
 
 </select><br><br>
 
@@ -171,7 +175,7 @@ Category List:<select name="cat">
 		</div>
 
 		<script>
-			function openCity(evt, cityName) {
+			/*function openCity(evt, cityName) {
 				var i, tabcontent, tablinks;
 				tabcontent = document.getElementsByClassName("tabcontent");
 				for (i = 0; i < tabcontent.length; i++) {
@@ -184,10 +188,65 @@ Category List:<select name="cat">
 				}
 				document.getElementById(cityName).style.display = "block";
 				evt.currentTarget.className += " active";
-			}
+			}*/
 		</script>
 
-	</center>
+	</center> --%>
+	
+	<center>
+	<table>
+	<div class="container">
+   <ul class="nav nav-pills">
+    <li class="active"><a data-toggle="pill" href="#home">PRODUCT</a></li>
+      <li><a data-toggle="pill" href="#menu2">CATEGORY</a></li>
+    <li><a data-toggle="pill" href="#menu3">SUPPLIER</a></li>
+  </ul>
+  
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+ 
+ 	<form action="insertProdData" method="post" enctype="multipart/form-data">
+ 	
+ 	<%
+	List<Supplier> suppliers=(List<Supplier>) request.getAttribute("suppliers");
+List<Category> category=(List<Category>)request.getAttribute("categories");
+	
+
+%>
+
+				Product Name : <input type="text" name="pname" required/><br>
+					<br> Product Description : <input type="text" name="desc" required/><br>
+					<br> Product Price : <input type="number" name="price" required/><br>
+					<br> Product Stock : <input type="number" name="stock" required/><br>
+					<br> Category List:<select name="cat" required>
+						<option>-----Category List----</option>		
+						<% for(Category c:category){%>
+						
+						<option value="<%=c.getCid()%>"><%=c.getCname() %></option>		
+						
+						<%} %>
+
+					</select> Supplier List:<select name="sup" required>
+						<option>-----Supplier List----</option>
+					   <% for(Supplier s:suppliers){ %>
+					   
+					   <option value="<%=s.getSid()%>"><%=s.getSname() %></option>
+					   <%} %>--%>
+					</select><br>
+					<br> Image File: <input type="file" name="file" required/> 
+
+<input type="submit" value="insert" />
+ 	</form>
+    </div>
+        <div id="menu2" class="tab-pane fade">
+     <%@include file="category.jsp" %>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+    <%@include file="supplier.jsp" %>
+    </div>
+  </div>
+</div>
+</center>
 
 	<%@include file="footer.jsp"%>
 </body>

@@ -34,8 +34,8 @@ PASSWORD : <input type="password" name="pwd"><br><br>
  
   <form action="login">
     <div class="form-group">
-      <label for="name">NAME:</label>
-      <input type="text" class="form-control" id="email" placeholder="Enter Name" name="un">
+      <label for="name">EMAIL:</label>
+      <input type="text" class="form-control" id="email" placeholder="Enter Email" name="un">
     </div>
     <div class="form-group">
       <label for="pwd">Password:</label>

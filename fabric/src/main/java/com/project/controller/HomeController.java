@@ -42,7 +42,7 @@ public class HomeController {
 			
 		
 		
-		if(name.equalsIgnoreCase(u.getName()) && p.equals(u.getPwd())){
+		if(name.equalsIgnoreCase(u.getEmail()) && p.equals(u.getPwd())){
 			ModelAndView mv=new ModelAndView("adminadd","message",u.getName());
 			mv.getModelMap().addAttribute("categories", categoryDao.getAllCat());
 			mv.getModelMap().addAttribute("suppliers", supplierDao.getAll());

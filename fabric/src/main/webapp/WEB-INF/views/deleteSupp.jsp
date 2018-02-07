@@ -13,7 +13,7 @@
 <br>
 Deleted Successfully
 
-<form action="adminadd">
+<form action="${pageContext.request.contextPath}/adminadd">
 <input type="submit" value="Go Back"/>
 </form>
 
