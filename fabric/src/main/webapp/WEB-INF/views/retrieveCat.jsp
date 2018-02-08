@@ -46,7 +46,7 @@ for(Category u:l)
 <%} %>
 </table>
 </center>
-
+<form action="adminadd"><input type="submit" value="back"></form>
 <%@include file="footer.jsp" %>
 </body>
 </html>

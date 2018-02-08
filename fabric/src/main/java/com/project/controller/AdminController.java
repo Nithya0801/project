@@ -22,6 +22,7 @@ import com.project.Dao.SupplierDao;
 import com.project.Model.Category;
 import com.project.Model.Product;
 import com.project.Model.Supplier;
+import com.project.Model.User;
 
 @Controller
 public class AdminController {
@@ -292,5 +293,6 @@ public class AdminController {
 	{
 		return new ModelAndView("/reteriveProd");
 	}
+	
 
 }

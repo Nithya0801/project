@@ -32,19 +32,19 @@
 <ul class="nav navbar-nav navbar-left">
 
 <li><a href="index" class="active">Home</a></li>
-<li><a href="${pageContext.request.contextPath}/adminadd">Admin</a></li>
+<li><a href="${pageContext.request.contextPath}/login">Admin</a></li>
 <li><a href="register">Register</a></li>
 <li><a href="signin">Signin</a></li>
 
 </ul>
 
 
-<ul class="nav navbar-nav navbar-right">
+<%-- <ul class="nav navbar-nav navbar-right">
 
 
-<li><a href="#">Logout</a></li>
+<li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
 
-</ul>
+</ul> --%>
 </div>
 </div>
 </div>

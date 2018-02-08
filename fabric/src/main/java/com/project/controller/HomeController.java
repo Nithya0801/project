@@ -29,11 +29,12 @@ public class HomeController {
 	@Autowired
 	private CategoryDao categoryDao;
 	
+	static int c=0;
 	@RequestMapping("/login")
 	public ModelAndView mymethod(HttpServletRequest req,HttpServletResponse res)
 	{
 		String name=req.getParameter("un");
-		String p=req.getParameter("pwd");
+	/*	String p=req.getParameter("pwd");
 		
 		List<User> user=userDao.getAllUser();
 		int f=1;
@@ -55,7 +56,16 @@ public class HomeController {
 		if(f==1)
 			return new ModelAndView("error","message","Username or Password Incorrect!!!!");
 		else
-			return new ModelAndView();
+			return new ModelAndView();*/
+		/*
+		ModelAndView mv=new ModelAndView("adminadd","message","");
+		mv.getModelMap().addAttribute("categories", categoryDao.getAllCat());
+		mv.getModelMap().addAttribute("suppliers", supplierDao.getAll());
+		mv.getModelMap().put("categories", categoryDao.getAllCat());
+		return mv;*/
+		
+		
+		return new ModelAndView("login");
 	}
 	
 
@@ -104,6 +114,7 @@ public class HomeController {
 		u.setEmail(mail);
 		u.setPhone(phone);
 		u.setCountry(country);
+		u.setEnabled("false");
 		userDao.addUser(u);
 	//	request.getSession().setAttribute("obj", u);
         return new ModelAndView("suc");
@@ -131,9 +142,26 @@ public class HomeController {
 		return new ModelAndView("reteriveAll");
 	}
 	@RequestMapping("/adminadd")
-	public ModelAndView success()
+	public ModelAndView success(HttpServletRequest request)
 	{	
-	ModelAndView mv=new ModelAndView("adminadd","message","successfully logged in!!!!");
+		String name="";
+		if(c==0)
+		{
+		String mail=request.getParameter("un");
+		System.out.println(mail);
+		List<User> u=userDao.getAllUser();
+	
+		for(User uu:u)
+		{
+			if(uu.getEmail().equals(mail))
+			{
+				name=uu.getName();
+				System.out.println(name);
+			}
+		}
+		}
+	//	String str=(String)request.getSession().getAttribute("message");
+		ModelAndView mv=new ModelAndView("adminadd","message",name);
 	mv.getModelMap().addAttribute("categories", categoryDao.getAllCat());
 	mv.getModelMap().addAttribute("suppliers", supplierDao.getAll());
 	mv.getModelMap().put("categories", categoryDao.getAllCat());
@@ -155,6 +183,32 @@ public class HomeController {
 	public ModelAndView sucRegister()
 	{
 		return new ModelAndView("suc");
+	}
+	
+	@RequestMapping("/logout")
+	public ModelAndView logout()
+	{
+		return new ModelAndView("index");
+	}
+
+	@RequestMapping("/welcome")
+	public ModelAndView welcome(HttpServletRequest request)
+	{
+		String mail=request.getParameter("un");
+		System.out.println(mail);
+		List<User> u=userDao.getAllUser();
+		String name="";
+		for(User uu:u)
+		{
+			if(uu.getEmail().equals(mail))
+			{
+				name=uu.getName();
+				System.out.println(name);
+			}
+		}
+	request.getSession().setAttribute("message",name);
+	ModelAndView mv=new ModelAndView("adminadd","message",name);
+	return mv;
 	}
 
 }

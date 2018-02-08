@@ -30,6 +30,22 @@ public class User {
 	@Column(name="enabled")
 	private String enabled;
 	
+	public String getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	@Column(name="role")
 	private String role;
 

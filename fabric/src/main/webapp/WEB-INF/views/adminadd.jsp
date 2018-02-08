@@ -60,13 +60,12 @@ body {
 <body>
 
 	<%@page import="com.project.Model.User"%>
-	<%@include file="header.jsp"%>
-	<br>
-	<br>
-	<br> WELCOME : ${message}
-	<br>
-	<br>
-
+	<%@include file="welcome.jsp"%>
+<br>
+<br>
+<br>
+<br>
+<br>
 	<a href="${pageContext.request.contextPath}/getAllUser"> User Details</a>|
 	<a href="${pageContext.request.contextPath}/getAllSupp">Supplier Details</a>|
 	<a href="${pageContext.request.contextPath}/getAllCat">Category Details</a>|

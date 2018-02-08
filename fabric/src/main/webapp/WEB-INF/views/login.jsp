@@ -32,8 +32,11 @@ PASSWORD : <input type="password" name="pwd"><br><br>
 
 <div class="container">
  
-  <form action="login">
-    <div class="form-group">
+<!--   <form action="login">
+ -->   
+ 
+ <form action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
+  <div class="form-group">
       <label for="name">EMAIL:</label>
       <input type="text" class="form-control" id="email" placeholder="Enter Email" name="un">
     </div>
@@ -41,7 +44,9 @@ PASSWORD : <input type="password" name="pwd"><br><br>
       <label for="pwd">Password:</label>
       <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
     </div>
+       <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
        <button type="submit" class="btn btn-default">Submit</button>
+       
   </form>
 </div>
 
