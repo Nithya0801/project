@@ -64,19 +64,20 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 
 <http>
 
-<intercept-url pattern="/login" access="permitAll" />
 <!-- <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" />
 
- --> <intercept-url pattern="/adminadd" access="hasAuthority('ROLE_ADMIN')" />
- 
+ --> <intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')" />
+<intercept-url pattern="/login" access="permitAll" />
 
 <form-login 
 			login-page="/login" 
 			username-parameter="un"
 			password-parameter="pwd" 
 			login-processing-url="/j_spring_security_check"
-			authentication-success-forward-url="/adminadd"
-			authentication-failure-forward-url="/error" />
+			authentication-success-forward-url="/admin/adminadd"
+			authentication-failure-forward-url="/access_denied" />
+			
+			<access-denied-handler error-page="/access_denied"/>
 <logout logout-url="/logout" invalidate-session="true" logout-success-url="/"/>
 
 

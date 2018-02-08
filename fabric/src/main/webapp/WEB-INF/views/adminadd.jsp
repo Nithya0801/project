@@ -66,14 +66,14 @@ body {
 <br>
 <br>
 <br>
-	<a href="${pageContext.request.contextPath}/getAllUser"> User Details</a>|
-	<a href="${pageContext.request.contextPath}/getAllSupp">Supplier Details</a>|
+	<%-- <a href="${pageContext.request.contextPath}/getAllUser"> User Details</a>|
+	<a href="${pageContext.request.contextPath}getAllSupp">Supplier Details</a>|
 	<a href="${pageContext.request.contextPath}/getAllCat">Category Details</a>|
 	<a href="${pageContext.request.contextPath}/getAllProduct">Product Details</a>|
 	<br>
 	<br>
 	<br>
-<%-- 	<!--<center>
+ --%><%-- 	<!--<center>
 		<div class="tab">
 			<button class="tablinks" onclick="openCity(event, 'Product')">Product</button>
 			<button class="tablinks" onclick="openCity(event, 'Category')">Category</button>
@@ -204,7 +204,7 @@ Category List:<select name="cat">
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
  
- 	<form action="insertProdData" method="post" enctype="multipart/form-data">
+ 	<form action="${pageContext.request.contextPath}/admin/insertProdData" method="post" enctype="multipart/form-data">
  	
  	<%
 	List<Supplier> suppliers=(List<Supplier>) request.getAttribute("suppliers");
@@ -233,7 +233,8 @@ List<Category> category=(List<Category>)request.getAttribute("categories");
 					   <%} %>--%>
 					</select><br>
 					<br> Image File: <input type="file" name="file" required/> 
-
+ <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+ 
 <input type="submit" value="insert" />
  	</form>
     </div>

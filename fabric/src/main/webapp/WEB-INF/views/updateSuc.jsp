@@ -14,7 +14,7 @@
 <br>
 <h3>Updated Successfuly</h3>
 
-<a href="getAllSupp">View</a>
+<a href="${pageContext.request.contextPath}/admin/getAllSupp">View</a>
 
 <%@include file="footer.jsp" %>
 </body>

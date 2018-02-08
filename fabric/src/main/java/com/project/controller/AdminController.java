@@ -38,7 +38,7 @@ public class AdminController {
 	
 	//Supplier Controller
 	
-	@RequestMapping("/insertData")
+	@RequestMapping("/admin/insertData")
 	ModelAndView insert(HttpServletRequest request)
 	{
 		
@@ -68,7 +68,7 @@ public class AdminController {
 	
 	
 	
-	@RequestMapping("/getAllSupp")
+	@RequestMapping("/admin/getAllSupp")
 	public ModelAndView viewSupp(HttpServletRequest request)
 	{
 		System.out.println("inside...");
@@ -85,7 +85,7 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("/updateSupp")
+	@RequestMapping("/admin/updateSupp")
 	public ModelAndView update(HttpServletRequest request)
 	{
 		int i=Integer.parseInt(request.getParameter("sid"));
@@ -95,7 +95,7 @@ public class AdminController {
 		return new ModelAndView("/updateSupp");
 	}
 	
-	@RequestMapping("/updateAll")
+	@RequestMapping("/admin/updateAll")
 	public ModelAndView updateAll(HttpServletRequest request)
 	{
 		int sid=Integer.parseInt(request.getParameter("sid"));
@@ -111,7 +111,7 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping("/deleteSupp")
+	@RequestMapping("/admin/deleteSupp")
 	public ModelAndView delete(HttpServletRequest request)
 	{
 		int sid=Integer.parseInt(request.getParameter("sid"));
@@ -125,7 +125,7 @@ public class AdminController {
 	
 	//Category Controller
 	
-	@RequestMapping("/insertCatData")
+	@RequestMapping("/admin/insertCatData")
 	public ModelAndView insertSupp(HttpServletRequest request)
 	{
 		String option=request.getParameter("option");
@@ -148,7 +148,7 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping("/getAllCat")
+	@RequestMapping("/admin/getAllCat")
 	public ModelAndView retrieveCat(HttpServletRequest request)
 	{
 		List<Category> l=categoryDao.getAllCat();
@@ -162,7 +162,7 @@ public class AdminController {
 		return new ModelAndView("/retrieveCat");
 	}
 	
-	@RequestMapping("/updateCat")
+	@RequestMapping("/admin/updateCat")
 	public ModelAndView updateCat(HttpServletRequest request)
 	{
 		int cid=Integer.parseInt(request.getParameter("cid"));
@@ -172,7 +172,7 @@ public class AdminController {
 		return new ModelAndView("updateCat");
 	}
 	
-	@RequestMapping("/updateAllCat")
+	@RequestMapping("/admin/updateAllCat")
 	public ModelAndView updateAllCat(HttpServletRequest request)
 	{
 		int cid=Integer.parseInt(request.getParameter("cid"));
@@ -188,7 +188,7 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("/deleteCat")
+	@RequestMapping("/admin/deleteCat")
 	public ModelAndView deleteCat(HttpServletRequest request)
 	{
 		int cid=Integer.parseInt(request.getParameter("cid"));
@@ -234,7 +234,7 @@ public class AdminController {
 	}
 	
 
-	@RequestMapping("/insertProdData")
+	@RequestMapping("/admin/insertProdData")
 	public ModelAndView insertProduct(HttpServletRequest request,@RequestParam("file")MultipartFile file)
 	{
 		String pname=request.getParameter("pname");
@@ -279,7 +279,7 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("/getAllProduct")
+	@RequestMapping("/admin/getAllProduct")
 	public ModelAndView reteriveProduct(HttpServletRequest request)
 	{
 		List<Product> l=productDao.getAll();
@@ -294,5 +294,10 @@ public class AdminController {
 		return new ModelAndView("/reteriveProd");
 	}
 	
+	@RequestMapping("/access_denied")
+	public ModelAndView access_denied()
+	{
+		return new ModelAndView("access_denied");
+	}
 
 }

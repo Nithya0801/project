@@ -18,7 +18,7 @@ table, th, td {
 <%@page import="java.util.*" %>
 <%@page import="com.project.Model.*" %>
 
-<%@include file="header.jsp" %>
+<%@include file="welcome.jsp" %>
 <br>
 <br>
 <br>
@@ -40,15 +40,15 @@ for(Supplier u:l)
 <tr>
 <td><%=u.getSid()%></td>
 <td><%=u.getSname()%></td>
-<td><a href="updateSupp?sid=<%=u.getSid()%>"><img src="./resources/ed.png"/></a></td>
-<td><a href="deleteSupp?sid=<%=u.getSid()%>"><img src="./resources/de.png"/></a></td>
+<td><a href="${pageContext.request.contextPath}/admin/updateSupp?sid=<%=u.getSid()%>"><img src="./resources/ed.png"/></a></td>
+<td><a href="${pageContext.request.contextPath}/admin/deleteSupp?sid=<%=u.getSid()%>"><img src="./resources/de.png"/></a></td>
 
 </tr>
 
 <%} %>
 </table>
 </center>
-<form action="adminadd"><input type="submit" value="back"></form>
+<form action="${pageContext.request.contextPath}/admin/adminadd"><input type="submit" value="back"></form>
 <%@include file="footer.jsp" %>
 </body>
 </html>

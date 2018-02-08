@@ -34,6 +34,7 @@ public class HomeController {
 	public ModelAndView mymethod(HttpServletRequest req,HttpServletResponse res)
 	{
 		String name=req.getParameter("un");
+		req.getSession().setAttribute("message",name);
 	/*	String p=req.getParameter("pwd");
 		
 		List<User> user=userDao.getAllUser();
@@ -127,7 +128,7 @@ public class HomeController {
 		return new ModelAndView("index");
 	}
 	
-	@RequestMapping("/getAllUser")
+	@RequestMapping("/admin/getAllUser")
 	public ModelAndView InvokeAll(HttpServletRequest request)
 	{
 		List<User> ll=userDao.getAllUser();
@@ -141,10 +142,10 @@ public class HomeController {
 	{
 		return new ModelAndView("reteriveAll");
 	}
-	@RequestMapping("/adminadd")
+	@RequestMapping("/admin/adminadd")
 	public ModelAndView success(HttpServletRequest request)
 	{	
-		String name="";
+		/*String name="";
 		if(c==0)
 		{
 		String mail=request.getParameter("un");
@@ -159,9 +160,9 @@ public class HomeController {
 				System.out.println(name);
 			}
 		}
-		}
+		}*/
 	//	String str=(String)request.getSession().getAttribute("message");
-		ModelAndView mv=new ModelAndView("adminadd","message",name);
+		ModelAndView mv=new ModelAndView("adminadd","message",request.getParameter("un"));
 	mv.getModelMap().addAttribute("categories", categoryDao.getAllCat());
 	mv.getModelMap().addAttribute("suppliers", supplierDao.getAll());
 	mv.getModelMap().put("categories", categoryDao.getAllCat());
@@ -209,6 +210,12 @@ public class HomeController {
 	request.getSession().setAttribute("message",name);
 	ModelAndView mv=new ModelAndView("adminadd","message",name);
 	return mv;
+	}
+	
+	@RequestMapping("/UserPage")
+	public ModelAndView userPage()
+	{
+		return new ModelAndView("UserPage");
 	}
 
 }

@@ -16,7 +16,7 @@ table, th, td {
 <%@page import="java.util.*" %>
 <%@page import="com.project.Model.*" %>
 
-<%@include file="header.jsp" %>
+<%@include file="welcome.jsp" %>
 <br>
 <br>
 <br>
@@ -38,15 +38,15 @@ for(Category u:l)
 <tr>
 <td><%=u.getCid() %></td>
 <td><%=u.getCname()%></td>
-<td><a href="updateCat?cid=<%=u.getCid()%>"><img src="./resources/ed.png"/></a></td>
-<td><a href="deleteCat?cid=<%=u.getCid()%>"><img src="./resources/de.png"/></a></td>
+<td><a href="${pageContext.request.contextPath}/admin/updateCat?cid=<%=u.getCid()%>"><img src="./resources/ed.png"/></a></td>
+<td><a href="${pageContext.request.contextPath}/admin/deleteCat?cid=<%=u.getCid()%>"><img src="./resources/de.png"/></a></td>
 
 </tr>
 
 <%} %>
 </table>
 </center>
-<form action="adminadd"><input type="submit" value="back"></form>
+<form action="${pageContext.request.contextPath}/admin/adminadd"><input type="submit" value="back"></form>
 <%@include file="footer.jsp" %>
 </body>
 </html>

@@ -7,13 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@include file="header.jsp" %>
+<%@include file="welcome.jsp" %>
 <br>
 <br>
 <br>
-<h3>Updated Successfuly</h3>
+<br>
 
-<a href="${pageContext.request.contextPath}/admin/getAllCat">View</a>
+Welcome : User
 
 <%@include file="footer.jsp" %>
 </body>

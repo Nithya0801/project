@@ -11,7 +11,7 @@
 <h5>
 <center>
 
-<form action="${pageContext.request.contextPath}/insertCatData">
+<form action="${pageContext.request.contextPath}/admin/insertCatData">
 
 
 CATEGORYTID : <input type="number" name="cid" required><br><br>

@@ -14,7 +14,7 @@ Category category=(Category)request.getSession().getAttribute("category");
 
 <h3>
 <center>
-<form action="updateAllCat">
+<form action="${pageContext.request.contextPath}/admin/updateAllCat">
 <table style="width:80%;">
 <tr>
 <td><input type="number" value="<%=category.getCid() %>" name="cid"></td>

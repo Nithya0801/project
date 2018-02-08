@@ -16,7 +16,7 @@ table, th, td {
 <%@page import="java.util.*" %>
 <%@page import="com.project.Model.*" %>
 
-<%@include file="header.jsp" %>
+<%@include file="welcome.jsp" %>
 <br>
 <br>
 <br>
@@ -51,7 +51,7 @@ for(User u:l)
 <%} %>
 </table>
 </center>
-<form action="adminadd"><input type="submit" value="back"></form>
+<form action="${pageContext.request.contextPath}/admin/adminadd"><input type="submit" value="back"></form>
 <%@include file="footer.jsp" %>
 </body>
 </html>

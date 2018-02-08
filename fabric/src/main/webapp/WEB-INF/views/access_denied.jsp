@@ -7,14 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@include file="header.jsp" %>
-<br>
-<br>
-<br>
-<h3>Updated Successfuly</h3>
 
-<a href="${pageContext.request.contextPath}/admin/getAllCat">View</a>
+<br>
+<br>
+<br>
+Access is Denied!!!!!!
 
-<%@include file="footer.jsp" %>
+<br>
+<br>
+<form action="${pageContext.request.contextPath}/index">
+<input type="submit" value="Go Back">
+</form>
 </body>
 </html>

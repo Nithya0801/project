@@ -23,10 +23,19 @@
 </div>
 <div class="collapse navbar-collapse" id="hea">
 <ul class="nav navbar-nav navbar-left">
-<li>WELCOME : ${message}</li>
-</ul>
+<li><a>WELCOME : ${message}</a></li>
 
 
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">View List <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="${pageContext.request.contextPath}/admin/getAllUser">User Details</a></li>
+          <li><a href="${pageContext.request.contextPath}/admin/getAllCat">Category Details</a></li>
+          <li><a href="${pageContext.request.contextPath}/admin/getAllSupp">Supplier Details</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/getAllProduct">Product Details</a></li>
+          
+        </ul>
+      </li>
+      </ul>
 <ul class="nav navbar-nav navbar-right">
 
 
@@ -38,9 +47,7 @@
 </div>
 <br>
 <br>
-<br>
-<br>
-WELCOME : ${message} 
+
 
 </body>
 </html>

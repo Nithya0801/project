@@ -14,7 +14,7 @@ Supplier supplier=(Supplier)request.getSession().getAttribute("supplier");
 
 <h3>
 <center>
-<form action="updateAll">
+<form action="${pageContext.request.contextPath}/admin/updateAll">
 <table style="width:80%;">
 <tr>
 <td><input type="number" value="<%=supplier.getSid() %>" name="sid"></td>
