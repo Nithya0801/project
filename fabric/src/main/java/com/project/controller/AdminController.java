@@ -327,6 +327,8 @@ System.out.println(b+"\t"+pid);
 		return "redirect:adminadd";
 	}
 	
+	
+	//Search Button
 	@RequestMapping("/admin/search")
 	public ModelAndView search(@RequestParam("search") String n)
 	{
@@ -343,7 +345,66 @@ System.out.println(b+"\t"+pid);
 		
 		return new ModelAndView("reteriveProd","list",value);
 		
-		
-		
 	}
+	
+	//Update Product
+	
+	@RequestMapping("/admin/updatePro")
+	public ModelAndView updateProd(@RequestParam("pid") int pid)
+	{
+		List<Product> ll=productDao.getProductById(pid);
+		ModelAndView mv=new ModelAndView();
+		mv.getModelMap().addAttribute("prod",ll);
+		mv.getModelMap().addAttribute("categories", categoryDao.getAllCat());
+		mv.getModelMap().addAttribute("suppliers", supplierDao.getAll());
+		mv.setViewName("updatePro");
+		return mv;
+	}
+	
+	@RequestMapping("/admin/upPro")
+	public String updateProduct(HttpServletRequest request,@RequestParam("file")MultipartFile file)
+	{
+		String pname=request.getParameter("pname");
+		String desc=request.getParameter("desc");
+		Float price=Float.parseFloat(request.getParameter("price"));
+		int stock=Integer.parseInt(request.getParameter("stock"));
+		int cid=Integer.parseInt(request.getParameter("cat"));
+		int sid=Integer.parseInt(request.getParameter("sup"));
+		Category category=categoryDao.getCategoryById(cid);
+		Supplier supplier=supplierDao.getSupplierById(sid);
+		
+		Product product=new Product();
+		product.setPid(Integer.parseInt(request.getParameter("pid")));
+		product.setPname(pname);
+		product.setDesc(desc);
+		product.setPrice(price);
+		product.setStock(stock);
+		product.setCategory(category);
+		product.setSupplier(supplier);
+		
+		String filepath=request.getSession().getServletContext().getRealPath("/");
+		String filename=file.getOriginalFilename();
+		
+		System.out.println(filepath+"\t"+filename);
+		request.getSession().setAttribute("filename",(filepath+filename));
+		product.setImgname(filename);
+		
+		productDao.updateProduct(product);
+		try
+		{
+			byte img[]=file.getBytes();
+			BufferedOutputStream bout=new BufferedOutputStream(new FileOutputStream(filepath+"/resources/"+filename));
+			bout.write(img);
+			bout.close();
+			
+		}
+		catch(IOException ioe)
+		{
+			System.out.println(ioe);
+		}
+		
+		return "redirect:getAllProduct";
+	}
+	
+	
 }

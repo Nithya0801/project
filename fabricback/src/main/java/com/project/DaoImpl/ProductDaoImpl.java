@@ -78,8 +78,20 @@ public class ProductDaoImpl implements ProductDao{
 	}
 
 	public boolean updateProduct(Product product) {
-		// TODO Auto-generated method stub
-		return false;
+
+		Session session=sessionFactory.openSession();
+		session.beginTransaction();
+		session.update(product);
+		session.getTransaction().commit();
+		return true;
+	}
+
+	public List<Product> getProductById(int pid) {
+		Session session=sessionFactory.openSession();
+		session.beginTransaction();
+		List<Product> li=session.createQuery("from product where pid="+pid).list();
+		session.getTransaction().commit();
+		return li;
 	}
 
 	
