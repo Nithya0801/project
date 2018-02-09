@@ -9,8 +9,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -74,7 +76,7 @@ public class AdminController {
 		System.out.println("inside...");
 		List<Supplier> l=supplierDao.getAll();
 		request.getSession().setAttribute("obj1",l);
-		return new ModelAndView("retriveSupp");
+		return new ModelAndView("retriveSupp","list",l);
 	}
 	
 	
@@ -284,7 +286,7 @@ public class AdminController {
 	{
 		List<Product> l=productDao.getAll();
 		request.getSession().setAttribute("getPro",l);
-		return new ModelAndView("reteriveProd");
+		return new ModelAndView("reteriveProd","list",l);
 	}
 	
 	
@@ -300,4 +302,48 @@ public class AdminController {
 		return new ModelAndView("access_denied");
 	}
 
+	
+	/*@RequestMapping("/welcome")
+	public ModelAndView welcoem()
+	{
+		return new ModelAndView("welcome");
+	}*/
+	
+	
+	//Delete The Product
+	
+	@RequestMapping("/admin/deletePro")
+	public String delProduct(@RequestParam("pid") int pid)
+	{
+		boolean b=productDao.deleteProduct(pid);
+System.out.println(b+"\t"+pid);
+		return "redirect:getAllProduct";
+	}
+	
+
+	@RequestMapping("/admin/demo")
+	public String demo()
+	{
+		return "redirect:adminadd";
+	}
+	
+	@RequestMapping("/admin/search")
+	public ModelAndView search(@RequestParam("search") String n)
+	{
+		List<Product> l=productDao.getAll();
+		List<Product> value=new ArrayList<Product>();
+	int a;
+		for(Product p:l)
+		{
+			if(p.getPname().equalsIgnoreCase(n))
+			{
+				value.add(p);
+			}
+		}
+		
+		return new ModelAndView("reteriveProd","list",value);
+		
+		
+		
+	}
 }

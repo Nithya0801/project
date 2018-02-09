@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page isELIgnored="false" %>
 <title>Insert title here</title>
 <style>
 table, th, td {
@@ -22,15 +24,28 @@ table, th, td {
 <center>
 <table style="width:80%;">
 <tr>
-<th>Product ID</th>
+<th colspan="3">Product List</th>
+<th colspan="5">
+ <div class="search-container">
+    <form action="${pageContext.request.contextPath}/admin/search">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+
+</th>
+</tr>
+<tr>
+
 <th>Product Name</th>
 <th>Description</th>
 <th>Stock</th>
 <th>Price</th>
 <th>Image</th>
+<th colspan="3">Action</th>
 </tr>
 
-<%
+<%-- <%
 List<Product> lp=(List<Product>)request.getSession().getAttribute("getPro");
 String fn=(String)request.getSession().getAttribute("filename");
 
@@ -47,8 +62,20 @@ for(Product p:lp)
 <td><img src="./resources/<%=p.getImgname()%>"/></td>
 </tr>
 
-<%} %>
+<%} %> --%>
 
+<c:forEach var="l" items="${list}">
+<tr>
+<td>${l.pname}</td>
+<td>${l.desc}</td>
+<td>${l.stock}</td>
+<td>${l.price }</td>
+<td><img src="./resources/${l.imgname}"/><td>
+<td><a href="${pageContext.request.contextPath}/admin/updatePro?pid=${l.pid}"><button span="2">/</button></a>
+<td><a href="${pageContext.request.contextPath}/admin/deletePro?pid=${l.pid}"><button span="2">X</button></a>
+</tr>
+
+</c:forEach>
 </table>
 </center>
 <form action="${pageContext.request.contextPath}/admin/adminadd"><input type="submit" value="back"></form>

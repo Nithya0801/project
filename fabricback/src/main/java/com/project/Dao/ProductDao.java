@@ -8,7 +8,7 @@ import com.project.Model.Supplier;
 public interface ProductDao {
 
 	boolean insertProduct(Product product);
-	Product geProductById(int pid);
+	List<Product> getProductByCid(int pid);
 	boolean deleteProduct(int pid);
 	List<Product> getAll();
 	boolean updateProduct(Product product);

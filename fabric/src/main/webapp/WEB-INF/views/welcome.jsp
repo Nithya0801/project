@@ -26,7 +26,7 @@
 <li><a>WELCOME : ${message}</a></li>
 
 
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">View List <span class="caret"></span></a>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/admin/demo">View List <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="${pageContext.request.contextPath}/admin/getAllUser">User Details</a></li>
           <li><a href="${pageContext.request.contextPath}/admin/getAllCat">Category Details</a></li>

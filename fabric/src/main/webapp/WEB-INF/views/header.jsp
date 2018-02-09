@@ -7,6 +7,9 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="s1.css" rel="stylesheet">
+
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page isELIgnored="false" %>
 <title>Insert title here</title>
 
 </head>
@@ -33,6 +36,21 @@
 
 <li><a href="${pageContext.request.contextPath}/index" class="active">Home</a></li>
 <li><a href="${pageContext.request.contextPath}/login">Admin</a></li>
+  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/index">Category List <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <%--   <li><a href="${pageContext.request.contextPath}/admin/getAllUser">User Details</a></li>
+          <li><a href="${pageContext.request.contextPath}/admin/getAllCat">Category Details</a></li>
+          <li><a href="${pageContext.request.contextPath}/admin/getAllSupp">Supplier Details</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/getAllProduct">Product Details</a></li> --%>
+            
+            <c:forEach var="c" items="${obj}">
+            <li><a href="${pageContext.request.contextPath}/getCritirea?cid=${c.cid}">${c.cname}</a></li>
+             </c:forEach>
+             
+            
+          
+        </ul>
+      </li>
 <li><a href="${pageContext.request.contextPath}/register">Register</a></li>
 <li><a href="${pageContext.request.contextPath}/signin">Signin</a></li>
 

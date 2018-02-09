@@ -32,7 +32,7 @@ table, th, td {
 <th>PHONE</th>
 </tr>
 <%
-List<User> l=(List<User>)request.getSession().getAttribute("obj");
+List<User> l=(List<User>)request.getSession().getAttribute("value");
 for(User u:l)
 {
 %>

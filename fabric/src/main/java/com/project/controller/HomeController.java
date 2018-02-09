@@ -9,11 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.project.Dao.CategoryDao;
+import com.project.Dao.ProductDao;
 import com.project.Dao.SupplierDao;
 import com.project.Dao.UserDao;
+import com.project.Model.Category;
+import com.project.Model.Product;
 import com.project.Model.User;
 
 
@@ -28,6 +32,9 @@ public class HomeController {
 	private SupplierDao supplierDao;
 	@Autowired
 	private CategoryDao categoryDao;
+	
+	@Autowired
+	ProductDao productDao;
 	
 	static int c=0;
 	@RequestMapping("/login")
@@ -73,9 +80,15 @@ public class HomeController {
 	@RequestMapping("/")
 	public ModelAndView index()
 	{
-		return new ModelAndView("index");
+	  List<Category> c=categoryDao.getAllCat();
+		System.out.println("invoked!!!!");
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("obj",c);
+		mv.setViewName("index");
+		return mv;
 	}
 	
+
 	/*@RequestMapping("/adminadd")
 	ModelAndView my()
 	{
@@ -125,14 +138,20 @@ public class HomeController {
 	@RequestMapping("/index")
 	public ModelAndView index1()
 	{
-		return new ModelAndView("index");
+		List<Category> c=categoryDao.getAllCat();
+		System.out.println("invoked!!!!");
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("obj",c);
+		mv.setViewName("index");
+		return mv;
 	}
 	
 	@RequestMapping("/admin/getAllUser")
 	public ModelAndView InvokeAll(HttpServletRequest request)
 	{
+		System.out.println("#################");
 		List<User> ll=userDao.getAllUser();
-		request.getSession().setAttribute("obj", ll);
+		request.getSession().setAttribute("value", ll);
 		return new ModelAndView("reteriveAll");
 		
 	}
@@ -140,6 +159,7 @@ public class HomeController {
 	@RequestMapping("/reteriveAll")
 	public ModelAndView reterive()
 	{
+		System.out.println("$$$$$$$$$$$$$$$");
 		return new ModelAndView("reteriveAll");
 	}
 	@RequestMapping("/admin/adminadd")
@@ -192,7 +212,7 @@ public class HomeController {
 		return new ModelAndView("index");
 	}
 
-	@RequestMapping("/welcome")
+	@RequestMapping("/admin/welcome")
 	public ModelAndView welcome(HttpServletRequest request)
 	{
 		String mail=request.getParameter("un");
@@ -218,5 +238,33 @@ public class HomeController {
 		return new ModelAndView("UserPage");
 	}
 
+	@RequestMapping("/cat")
+	public ModelAndView viewProduct()
+	{
+		List<Category> c=categoryDao.getAllCat();
+		System.out.println("invoked!!!!");
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("obj",c);
+		
+		mv.setViewName("index.jsp");
+		return mv;
+		
+		
+	}
+	
+
+	
+	@RequestMapping(value={"/getCritirea"})
+	public ModelAndView getCritirea(@RequestParam("cid") int cid)
+	{
+		
+		List<Product> li=productDao.getProductByCid(cid);
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("list",li);
+		mv.setViewName("productlist");
+		return mv;
+	}
+	
+	
 }
 

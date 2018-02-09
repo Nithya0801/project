@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <title>Insert title here</title>
 
 <style>
@@ -40,12 +41,14 @@ for(Supplier u:l)
 <tr>
 <td><%=u.getSid()%></td>
 <td><%=u.getSname()%></td>
+
+
 <td><a href="${pageContext.request.contextPath}/admin/updateSupp?sid=<%=u.getSid()%>"><img src="./resources/ed.png"/></a></td>
 <td><a href="${pageContext.request.contextPath}/admin/deleteSupp?sid=<%=u.getSid()%>"><img src="./resources/de.png"/></a></td>
 
 </tr>
-
 <%} %>
+
 </table>
 </center>
 <form action="${pageContext.request.contextPath}/admin/adminadd"><input type="submit" value="back"></form>
