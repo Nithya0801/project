@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,17 +11,24 @@ table, th, td {
 }
 </style>
 </head>
+ --%>
 
 <body>
 <%@page import="java.util.*" %>
 <%@page import="com.project.Model.*" %>
 
-<%@include file="welcome.jsp" %>
+<%@include file="header.jsp" %>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
 <center>
-<table style="width:80%;">
+
+<div class="container">
+<table class="table table-bordered">
+  <thead>
 <tr>
 <th>ID</th>
 <th>NAME</th>
@@ -31,6 +38,8 @@ table, th, td {
 <th>EMAIL</th>
 <th>PHONE</th>
 </tr>
+</thead>
+<tbody>
 <%
 List<User> l=(List<User>)request.getSession().getAttribute("value");
 for(User u:l)
@@ -49,7 +58,9 @@ for(User u:l)
 </tr>
 
 <%} %>
+</tbody>
 </table>
+</div>
 </center>
 <form action="${pageContext.request.contextPath}/admin/adminadd"><input type="submit" value="back"></form>
 <%@include file="footer.jsp" %>

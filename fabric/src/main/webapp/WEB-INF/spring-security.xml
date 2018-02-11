@@ -74,7 +74,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 			username-parameter="un"
 			password-parameter="pwd" 
 			login-processing-url="/j_spring_security_check"
-			authentication-success-forward-url="/admin/adminadd"
+			authentication-success-forward-url="/UserPage"
 			authentication-failure-forward-url="/access_denied" />
 			
 			<access-denied-handler error-page="/access_denied"/>

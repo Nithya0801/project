@@ -71,7 +71,9 @@ public class HomeController {
 		mv.getModelMap().addAttribute("suppliers", supplierDao.getAll());
 		mv.getModelMap().put("categories", categoryDao.getAllCat());
 		return mv;*/
-		
+		/*if(name.equalsIgnoreCase("nithya123@gmail.com"))
+			return new ModelAndView("adminadd");
+		else*/
 		
 		return new ModelAndView("login");
 	}
@@ -80,9 +82,10 @@ public class HomeController {
 	@RequestMapping("/")
 	public ModelAndView index()
 	{
-	  List<Category> c=categoryDao.getAllCat();
+	  
 		System.out.println("invoked!!!!");
 		ModelAndView mv=new ModelAndView();
+		List<Category> c=categoryDao.getAllCat();
 		mv.addObject("obj",c);
 		mv.setViewName("index");
 		return mv;
@@ -183,6 +186,8 @@ public class HomeController {
 		}*/
 	//	String str=(String)request.getSession().getAttribute("message");
 		ModelAndView mv=new ModelAndView("adminadd","message",request.getParameter("un"));
+		List<Category> c=categoryDao.getAllCat();
+		mv.addObject("obj",c);
 	mv.getModelMap().addAttribute("categories", categoryDao.getAllCat());
 	mv.getModelMap().addAttribute("suppliers", supplierDao.getAll());
 	mv.getModelMap().put("categories", categoryDao.getAllCat());
@@ -194,11 +199,11 @@ public class HomeController {
 		return new ModelAndView("error");
 	}
 	@RequestMapping("/signin")
-	public ModelAndView signin()
+	public String signin()
 	{
 		
 		
-		return new ModelAndView("login");
+		return "redirect:login";
 	}
 	@RequestMapping("/suc")
 	public ModelAndView sucRegister()
@@ -207,8 +212,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/logout")
-	public ModelAndView logout()
+	public ModelAndView logout(HttpServletRequest request)
 	{
+		request.getSession().invalidate();
 		return new ModelAndView("index");
 	}
 
@@ -235,7 +241,11 @@ public class HomeController {
 	@RequestMapping("/UserPage")
 	public ModelAndView userPage()
 	{
-		return new ModelAndView("UserPage");
+		ModelAndView mv=new ModelAndView();		
+		List<Category> c=categoryDao.getAllCat();
+		mv.addObject("obj",c);
+		mv.setViewName("UserPage");
+		return mv;
 	}
 
 	@RequestMapping("/cat")
@@ -259,11 +269,15 @@ public class HomeController {
 	{
 		
 		List<Product> li=productDao.getProductByCid(cid);
-		ModelAndView mv=new ModelAndView();
+	
+		ModelAndView mv=new ModelAndView();		
+		List<Category> c=categoryDao.getAllCat();
+		mv.addObject("obj",c);
 		mv.addObject("list",li);
 		mv.setViewName("productlist");
 		return mv;
 	}
+	
 	
 	
 }

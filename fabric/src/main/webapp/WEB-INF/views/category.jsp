@@ -9,11 +9,10 @@
 <body>
 
 <h5>
-<center>
 
+<div class="container">
 <form action="${pageContext.request.contextPath}/admin/insertCatData">
-
-
+ 
 CATEGORYTID : <input type="number" name="cid" required><br><br>
 
 CATEGORYNAME : <input type="text" name="cname" required><br><br>
@@ -22,13 +21,10 @@ CATEGORYNAME : <input type="text" name="cname" required><br><br>
 &nbsp;&nbsp;
 <input type="reset" name="option" value="Cancel">
 
-
-
 </form>
+</div>
 
 
-
-</center>
 
 </h5>
 </body>
