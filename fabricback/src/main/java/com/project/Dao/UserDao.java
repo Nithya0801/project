@@ -9,4 +9,6 @@ public interface UserDao {
 	boolean addUser(User u);
 
  List<User> getAllUser();
+ 
+ User getByEmail(String mail);
 }

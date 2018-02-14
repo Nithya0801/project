@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,349 +32,293 @@ public class AdminController {
 
 	@Autowired
 	SupplierDao supplierDao;
-	
+
 	@Autowired
 	CategoryDao categoryDao;
-	
+
 	@Autowired
 	ProductDao productDao;
-	
-	//Supplier Controller
-	
+
+	// Supplier Controller
+
 	@RequestMapping("/admin/insertData")
-	ModelAndView insert(HttpServletRequest request)
-	{
-		
-		String option=request.getParameter("option");
-		if(option.equalsIgnoreCase("insert"))
-		{
-			Supplier supplier=new Supplier();
-			int sid=Integer.parseInt(request.getParameter("sid"));
-		String sname=request.getParameter("sname");
-		supplier.setSid(sid);
-		supplier.setSname(sname);
-		System.out.println(supplier.getSid());
-		System.out.println(supplier.getSname());
-		boolean b=supplierDao.insertSupplier(supplier);
-		System.out.println(b);
-		if(b)
-			return new ModelAndView("suc");
-			//request.getRequestDispatcher("adminadd").forward(request, arg1);
-		else
-			return new ModelAndView("error");
-		}
-		else
-		{
+	ModelAndView insert(HttpServletRequest request) {
+
+		String option = request.getParameter("option");
+		if (option.equalsIgnoreCase("insert")) {
+			Supplier supplier = new Supplier();
+			int sid = Integer.parseInt(request.getParameter("sid"));
+			String sname = request.getParameter("sname");
+			supplier.setSid(sid);
+			supplier.setSname(sname);
+			System.out.println(supplier.getSid());
+			System.out.println(supplier.getSname());
+			boolean b = supplierDao.insertSupplier(supplier);
+			System.out.println(b);
+			if (b)
+				return new ModelAndView("suc");
+			// request.getRequestDispatcher("adminadd").forward(request, arg1);
+			else
+				return new ModelAndView("error");
+		} else {
 			return new ModelAndView("admin/adminadd");
 		}
 	}
-	
-	
-	
+
 	@RequestMapping("/admin/getAllSupp")
-	public ModelAndView viewSupp(HttpServletRequest request)
-	{
+	public ModelAndView viewSupp(HttpServletRequest request) {
 		System.out.println("inside...");
-		List<Supplier> l=supplierDao.getAll();
-		request.getSession().setAttribute("obj1",l);
-		return new ModelAndView("retriveSupp","list",l);
+		List<Supplier> l = supplierDao.getAll();
+		request.getSession().setAttribute("obj1", l);
+		return new ModelAndView("retriveSupp", "list", l);
 	}
-	
-	
+
 	@RequestMapping("retriveSupp")
-	public ModelAndView retrieveSupp()
-	{
+	public ModelAndView retrieveSupp() {
 		return new ModelAndView("/retriveSupp");
 	}
-	
-	
+
 	@RequestMapping("/admin/updateSupp")
-	public ModelAndView update(HttpServletRequest request)
-	{
-		int i=Integer.parseInt(request.getParameter("sid"));
-		//request.getSession().setAttribute("sid",i);
-		Supplier supplier=supplierDao.getSupplierById(i);
-		request.getSession().setAttribute("supplier",supplier);
+	public ModelAndView update(HttpServletRequest request) {
+		int i = Integer.parseInt(request.getParameter("sid"));
+		// request.getSession().setAttribute("sid",i);
+		Supplier supplier = supplierDao.getSupplierById(i);
+		request.getSession().setAttribute("supplier", supplier);
 		return new ModelAndView("/updateSupp");
 	}
-	
+
 	@RequestMapping("/admin/updateAll")
-	public ModelAndView updateAll(HttpServletRequest request)
-	{
-		int sid=Integer.parseInt(request.getParameter("sid"));
-		String sname=request.getParameter("sname");
-		Supplier s=new Supplier();
+	public ModelAndView updateAll(HttpServletRequest request) {
+		int sid = Integer.parseInt(request.getParameter("sid"));
+		String sname = request.getParameter("sname");
+		Supplier s = new Supplier();
 		s.setSid(sid);
 		s.setSname(sname);
-		
+
 		supplierDao.updateSupplier(s);
-		
+
 		return new ModelAndView("updateSuc");
 
-		
 	}
-	
+
 	@RequestMapping("/admin/deleteSupp")
-	public ModelAndView delete(HttpServletRequest request)
-	{
-		int sid=Integer.parseInt(request.getParameter("sid"));
-		//Supplier supplier=supplierDao.getSupplierById(sid);
+	public ModelAndView delete(HttpServletRequest request) {
+		int sid = Integer.parseInt(request.getParameter("sid"));
+		// Supplier supplier=supplierDao.getSupplierById(sid);
 		supplierDao.deleteSupplier(sid);
 		return new ModelAndView("deleteSupp");
 	}
-	
-	
-	
-	
-	//Category Controller
-	
+
+	// Category Controller
+
 	@RequestMapping("/admin/insertCatData")
-	public ModelAndView insertSupp(HttpServletRequest request)
-	{
-		String option=request.getParameter("option");
-		if(option.equalsIgnoreCase("insert"))
-		{
-			int cid=Integer.parseInt(request.getParameter("cid"));
-			String cname=request.getParameter("cname");
-			Category category=new Category();
+	public ModelAndView insertSupp(HttpServletRequest request) {
+		String option = request.getParameter("option");
+		if (option.equalsIgnoreCase("insert")) {
+			int cid = Integer.parseInt(request.getParameter("cid"));
+			String cname = request.getParameter("cname");
+			Category category = new Category();
 			category.setCid(cid);
 			category.setCname(cname);
-			
-			boolean b=categoryDao.insertCategory(category);
-			if(b)
+
+			boolean b = categoryDao.insertCategory(category);
+			if (b)
 				return new ModelAndView("suc");
 			else
 				return new ModelAndView("error");
-		}
-		else
+		} else
 			return new ModelAndView();
-		
+
 	}
-	
+
 	@RequestMapping("/admin/getAllCat")
-	public ModelAndView retrieveCat(HttpServletRequest request)
-	{
-		List<Category> l=categoryDao.getAllCat();
-		request.getSession().setAttribute("obj2",l);
+	public ModelAndView retrieveCat(HttpServletRequest request) {
+		List<Category> l = categoryDao.getAllCat();
+		request.getSession().setAttribute("obj2", l);
 		return new ModelAndView("retrieveCat");
 	}
-	
+
 	@RequestMapping("retrieveCat")
-	public ModelAndView viewCat()
-	{
+	public ModelAndView viewCat() {
 		return new ModelAndView("/retrieveCat");
 	}
-	
+
 	@RequestMapping("/admin/updateCat")
-	public ModelAndView updateCat(HttpServletRequest request)
-	{
-		int cid=Integer.parseInt(request.getParameter("cid"));
-		Category category=categoryDao.getCategoryById(cid);
-		request.getSession().setAttribute("category",category);
-		
+	public ModelAndView updateCat(HttpServletRequest request) {
+		int cid = Integer.parseInt(request.getParameter("cid"));
+		Category category = categoryDao.getCategoryById(cid);
+		request.getSession().setAttribute("category", category);
+
 		return new ModelAndView("updateCat");
 	}
-	
+
 	@RequestMapping("/admin/updateAllCat")
-	public ModelAndView updateAllCat(HttpServletRequest request)
-	{
-		int cid=Integer.parseInt(request.getParameter("cid"));
-		String cname=request.getParameter("cname");
-		Category category=new Category();
+	public ModelAndView updateAllCat(HttpServletRequest request) {
+		int cid = Integer.parseInt(request.getParameter("cid"));
+		String cname = request.getParameter("cname");
+		Category category = new Category();
 		category.setCid(cid);
 		category.setCname(cname);
-		
+
 		categoryDao.updateCategory(category);
 		return new ModelAndView("updateSucCat");
 
-		
 	}
-	
-	
+
 	@RequestMapping("/admin/deleteCat")
-	public ModelAndView deleteCat(HttpServletRequest request)
-	{
-		int cid=Integer.parseInt(request.getParameter("cid"));
-		//Supplier supplier=supplierDao.getSupplierById(sid);
+	public ModelAndView deleteCat(HttpServletRequest request) {
+		int cid = Integer.parseInt(request.getParameter("cid"));
+		// Supplier supplier=supplierDao.getSupplierById(sid);
 		categoryDao.deleteCategory(cid);
 		return new ModelAndView("deleteSupp");
 	}
-	
-	
-	//Product Controller
+
+	// Product Controller
 	@RequestMapping("/product")
-	public ModelAndView productPage(HttpServletRequest request)
-	{
-		List<Category> lc=categoryDao.getAllCat();
-		
-		List<String> categoryName=new ArrayList<String>();
-		
-		for(Category ll:lc)
-		{
+	public ModelAndView productPage(HttpServletRequest request) {
+		List<Category> lc = categoryDao.getAllCat();
+
+		List<String> categoryName = new ArrayList<String>();
+
+		for (Category ll : lc) {
 			categoryName.add(ll.getCname());
 		}
-		
-		System.out.println(categoryName);
-		
-	
-		request.getSession().setAttribute("categoryName",categoryName);
-		
 
-		List<Supplier> ls=supplierDao.getAll();
-		
-		List<String> supplierName=new ArrayList<String>();
-		
-		for(Supplier v:ls)
+		System.out.println(categoryName);
+
+		request.getSession().setAttribute("categoryName", categoryName);
+
+		List<Supplier> ls = supplierDao.getAll();
+
+		List<String> supplierName = new ArrayList<String>();
+
+		for (Supplier v : ls)
 			supplierName.add(v.getSname());
-		
+
 		System.out.println(supplierName);
-		request.getSession().setAttribute("supplierName",supplierName);
-		
-		
-		
-		
+		request.getSession().setAttribute("supplierName", supplierName);
+
 		return new ModelAndView("product");
 	}
-	
 
-	@RequestMapping("/admin/insertProdData")
-	public ModelAndView insertProduct(HttpServletRequest request,@RequestParam("file")MultipartFile file)
-	{
-		String pname=request.getParameter("pname");
-		String desc=request.getParameter("desc");
-		Float price=Float.parseFloat(request.getParameter("price"));
-		int stock=Integer.parseInt(request.getParameter("stock"));
-		int cid=Integer.parseInt(request.getParameter("cat"));
-		int sid=Integer.parseInt(request.getParameter("sup"));
-		Category category=categoryDao.getCategoryById(cid);
-		Supplier supplier=supplierDao.getSupplierById(sid);
-		
-		Product product=new Product();
+	@RequestMapping(value = { "/admin/insertProdData" }, method = RequestMethod.POST)
+	public ModelAndView insertProduct(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+		String pname = request.getParameter("pname");
+		String desc = request.getParameter("desc");
+		Float price = Float.parseFloat(request.getParameter("price"));
+		int stock = Integer.parseInt(request.getParameter("stock"));
+		int cid = Integer.parseInt(request.getParameter("cat"));
+		int sid = Integer.parseInt(request.getParameter("sup"));
+		Category category = categoryDao.getCategoryById(cid);
+		Supplier supplier = supplierDao.getSupplierById(sid);
+
+		Product product = new Product();
 		product.setPname(pname);
 		product.setDesc(desc);
 		product.setPrice(price);
 		product.setStock(stock);
 		product.setCategory(category);
 		product.setSupplier(supplier);
-		
-		String filepath=request.getSession().getServletContext().getRealPath("/");
-		String filename=file.getOriginalFilename();
-		
-		System.out.println(filepath+"\t"+filename);
-		request.getSession().setAttribute("filename",(filepath+filename));
+
+		String filepath = request.getSession().getServletContext().getRealPath("/");
+		String filename = file.getOriginalFilename();
+
+		System.out.println(filepath + "\t" + filename);
+		request.getSession().setAttribute("filename", (filepath + filename));
 		product.setImgname(filename);
-		
+
 		productDao.insertProduct(product);
-		try
-		{
-			byte img[]=file.getBytes();
-			BufferedOutputStream bout=new BufferedOutputStream(new FileOutputStream(filepath+"/resources/"+filename));
+		try {
+			byte img[] = file.getBytes();
+			BufferedOutputStream bout = new BufferedOutputStream(
+					new FileOutputStream(filepath + "/resources/" + filename));
 			bout.write(img);
 			bout.close();
-			
-		}
-		catch(IOException ioe)
-		{
+
+		} catch (IOException ioe) {
 			System.out.println(ioe);
 		}
-		
+
 		return new ModelAndView("suc");
 	}
-	
-	
+
 	@RequestMapping("/admin/getAllProduct")
-	public ModelAndView reteriveProduct(HttpServletRequest request)
-	{
-		List<Product> l=productDao.getAll();
-		request.getSession().setAttribute("getPro",l);
-		return new ModelAndView("reteriveProd","list",l);
+	public ModelAndView reteriveProduct(HttpServletRequest request) {
+		List<Product> l = productDao.getAll();
+		request.getSession().setAttribute("getPro", l);
+		return new ModelAndView("reteriveProd", "list", l);
 	}
-	
-	
+
 	@RequestMapping("reteriveProd")
-	public ModelAndView getAll()
-	{
+	public ModelAndView getAll() {
 		return new ModelAndView("/reteriveProd");
 	}
-	
+
 	@RequestMapping("/access_denied")
-	public ModelAndView access_denied()
-	{
+	public ModelAndView access_denied() {
 		return new ModelAndView("access_denied");
 	}
 
-	
-	/*@RequestMapping("/welcome")
-	public ModelAndView welcoem()
-	{
-		return new ModelAndView("welcome");
-	}*/
-	
-	
-	//Delete The Product
-	
+	/*
+	 * @RequestMapping("/welcome") public ModelAndView welcoem() { return new
+	 * ModelAndView("welcome"); }
+	 */
+
+	// Delete The Product
+
 	@RequestMapping("/admin/deletePro")
-	public String delProduct(@RequestParam("pid") int pid)
-	{
-		boolean b=productDao.deleteProduct(pid);
-System.out.println(b+"\t"+pid);
+	public String delProduct(@RequestParam("pid") int pid) {
+		boolean b = productDao.deleteProduct(pid);
+		System.out.println(b + "\t" + pid);
 		return "redirect:getAllProduct";
 	}
-	
 
 	@RequestMapping("/admin/demo")
-	public String demo()
-	{
+	public String demo() {
 		return "redirect:adminadd";
 	}
-	
-	
-	//Search Button
+
+	// Search Button
 	@RequestMapping("/admin/search")
-	public ModelAndView search(@RequestParam("search") String n)
-	{
-		List<Product> l=productDao.getAll();
-		List<Product> value=new ArrayList<Product>();
-	int a;
-		for(Product p:l)
-		{
-			if(p.getPname().equalsIgnoreCase(n))
-			{
+	public ModelAndView search(@RequestParam("search") String n) {
+		List<Product> l = productDao.getAll();
+		List<Product> value = new ArrayList<Product>();
+		int a;
+		for (Product p : l) {
+			if (p.getPname().equalsIgnoreCase(n)) {
 				value.add(p);
 			}
 		}
-		
-		return new ModelAndView("reteriveProd","list",value);
-		
+
+		return new ModelAndView("reteriveProd", "list", value);
+
 	}
-	
-	//Update Product
-	
+
+	// Update Product
+
 	@RequestMapping("/admin/updatePro")
-	public ModelAndView updateProd(@RequestParam("pid") int pid)
-	{
-		List<Product> ll=productDao.getProductById(pid);
-		ModelAndView mv=new ModelAndView();
-		mv.getModelMap().addAttribute("prod",ll);
+	public ModelAndView updateProd(@RequestParam("pid") int pid) {
+		List<Product> ll = productDao.getProductById(pid);
+		ModelAndView mv = new ModelAndView();
+		mv.getModelMap().addAttribute("prod", ll);
 		mv.getModelMap().addAttribute("categories", categoryDao.getAllCat());
 		mv.getModelMap().addAttribute("suppliers", supplierDao.getAll());
 		mv.setViewName("updatePro");
 		return mv;
 	}
-	
+
 	@RequestMapping("/admin/upPro")
-	public String updateProduct(HttpServletRequest request,@RequestParam("file")MultipartFile file)
-	{
-		String pname=request.getParameter("pname");
-		String desc=request.getParameter("desc");
-		Float price=Float.parseFloat(request.getParameter("price"));
-		int stock=Integer.parseInt(request.getParameter("stock"));
-		int cid=Integer.parseInt(request.getParameter("cat"));
-		int sid=Integer.parseInt(request.getParameter("sup"));
-		Category category=categoryDao.getCategoryById(cid);
-		Supplier supplier=supplierDao.getSupplierById(sid);
-		
-		Product product=new Product();
+	public String updateProduct(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+		String pname = request.getParameter("pname");
+		String desc = request.getParameter("desc");
+		Float price = Float.parseFloat(request.getParameter("price"));
+		int stock = Integer.parseInt(request.getParameter("stock"));
+		int cid = Integer.parseInt(request.getParameter("cat"));
+		int sid = Integer.parseInt(request.getParameter("sup"));
+		Category category = categoryDao.getCategoryById(cid);
+		Supplier supplier = supplierDao.getSupplierById(sid);
+
+		Product product = new Product();
 		product.setPid(Integer.parseInt(request.getParameter("pid")));
 		product.setPname(pname);
 		product.setDesc(desc);
@@ -381,30 +326,27 @@ System.out.println(b+"\t"+pid);
 		product.setStock(stock);
 		product.setCategory(category);
 		product.setSupplier(supplier);
-		
-		String filepath=request.getSession().getServletContext().getRealPath("/");
-		String filename=file.getOriginalFilename();
-		
-		System.out.println(filepath+"\t"+filename);
-		request.getSession().setAttribute("filename",(filepath+filename));
+
+		String filepath = request.getSession().getServletContext().getRealPath("/");
+		String filename = file.getOriginalFilename();
+
+		System.out.println(filepath + "\t" + filename);
+		request.getSession().setAttribute("filename", (filepath + filename));
 		product.setImgname(filename);
-		
+
 		productDao.updateProduct(product);
-		try
-		{
-			byte img[]=file.getBytes();
-			BufferedOutputStream bout=new BufferedOutputStream(new FileOutputStream(filepath+"/resources/"+filename));
+		try {
+			byte img[] = file.getBytes();
+			BufferedOutputStream bout = new BufferedOutputStream(
+					new FileOutputStream(filepath + "/resources/" + filename));
 			bout.write(img);
 			bout.close();
-			
-		}
-		catch(IOException ioe)
-		{
+
+		} catch (IOException ioe) {
 			System.out.println(ioe);
 		}
-		
+
 		return "redirect:getAllProduct";
 	}
-	
-	
+
 }
