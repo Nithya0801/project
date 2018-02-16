@@ -36,9 +36,7 @@
 					<td>${l.stock }</td>
 					<td>${l.price }</td>
 					<td><img src="./resources/${l.imgname}" width="80" height="52" /></td>
-					<td><a
-						href="${pageContext.request.contextPath}/proDetail?pid=${l.pid}"><Button
-								span="2">Details</Button></a></td>
+					<td><a href="${pageContext.request.contextPath}/proDetail?pid=${l.pid}"><Button span="2">Details</Button></a></td>
 				</tr>
 
 			</c:forEach>

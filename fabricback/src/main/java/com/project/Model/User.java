@@ -9,12 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+
+
 @Entity(name = "User")
 @Table(uniqueConstraints=@UniqueConstraint(columnNames="email"))
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+/*	@NotBlank(message = "Please enter Name!")*/
 	@Column(name = "name")
 	private String name;
 	@Column(name="pwd")
