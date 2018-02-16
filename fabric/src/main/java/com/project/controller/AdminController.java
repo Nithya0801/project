@@ -41,8 +41,8 @@ public class AdminController {
 
 	// Supplier Controller
 
-	@RequestMapping("/admin/insertData")
-	ModelAndView insert(HttpServletRequest request) {
+	@RequestMapping(value={"/admin/insertData"})
+ String insert(HttpServletRequest request) {
 
 		String option = request.getParameter("option");
 		if (option.equalsIgnoreCase("insert")) {
@@ -56,13 +56,12 @@ public class AdminController {
 			boolean b = supplierDao.insertSupplier(supplier);
 			System.out.println(b);
 			if (b)
-				return new ModelAndView("suc");
+				return "redirect:adminadd";
 			// request.getRequestDispatcher("adminadd").forward(request, arg1);
 			else
-				return new ModelAndView("error");
-		} else {
-			return new ModelAndView("admin/adminadd");
-		}
+				return "redirect:error";
+		} 
+		return null;
 	}
 
 	@RequestMapping("/admin/getAllSupp")
@@ -111,7 +110,7 @@ public class AdminController {
 
 	// Category Controller
 
-	@RequestMapping("/admin/insertCatData")
+	@RequestMapping(value={"/admin/insertCatData"})
 	public ModelAndView insertSupp(HttpServletRequest request) {
 		String option = request.getParameter("option");
 		if (option.equalsIgnoreCase("insert")) {
@@ -202,7 +201,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = { "/admin/insertProdData" }, method = RequestMethod.POST)
-	public ModelAndView insertProduct(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+	public String insertProduct(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
 		String pname = request.getParameter("pname");
 		String desc = request.getParameter("desc");
 		Float price = Float.parseFloat(request.getParameter("price"));
@@ -239,7 +238,7 @@ public class AdminController {
 			System.out.println(ioe);
 		}
 
-		return new ModelAndView("suc");
+		return "redirect:adminadd";
 	}
 
 	@RequestMapping("/admin/getAllProduct")
@@ -284,12 +283,19 @@ public class AdminController {
 		List<Product> l = productDao.getAll();
 		List<Product> value = new ArrayList<Product>();
 		int a;
-		for (Product p : l) {
+		List<Category> lc=categoryDao.getAllCat();
+		/*for (Product p : l) {
 			if (p.getPname().equalsIgnoreCase(n)) {
 				value.add(p);
 			}
-		}
+		}*/
 
+		
+		for(Product p:l)
+		{
+			if(p.getCategory().getCname().equalsIgnoreCase(n))
+				value.add(p);
+		}
 		return new ModelAndView("reteriveProd", "list", value);
 
 	}

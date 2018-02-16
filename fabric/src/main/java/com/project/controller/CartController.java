@@ -22,6 +22,7 @@ import com.project.Dao.ProductDao;
 import com.project.Dao.SupplierDao;
 import com.project.Dao.UserDao;
 import com.project.Model.Cart;
+import com.project.Model.Category;
 import com.project.Model.Order;
 import com.project.Model.Product;
 import com.project.Model.User;
@@ -65,7 +66,7 @@ public class CartController {
 		Principal principal = request.getUserPrincipal();
 		String n = "";
 		Float q = (float) 0;
-		Cart cart = new Cart();
+	
 		try {
 			n = principal.getName();
 		} catch (NullPointerException np) {
@@ -73,7 +74,7 @@ public class CartController {
 			return new ModelAndView("/login", "msg", "LoginFirst!!!!!");
 		}
 
-		try {
+	/*	try {
 			System.out.println(n);
 			List<Product> lp = productDao.getProductById(pid);
 			System.out.println("working");
@@ -99,8 +100,69 @@ public class CartController {
 
 		} catch (Exception e) {
 			System.out.println(e);
+		}*/
+		List<Product> lp = productDao.getProductById(pid);
+
+		User user=userDao.getByEmail(n);
+	//	System.out.println(cart.getCartId()+"\t"+user.getId());
+	/*List<Cart> value=cartDao.findCartById(user.getId());
+		Cart cartItems=null;
+		for(Cart c:value)
+		{*/
+		Cart cartItems=cartDao.getCartById(pid,user.getId());
+		
+		
+		System.out.println(cartItems);
+		if(cartItems==null)
+		{
+						System.out.println("working");
+
+			Cart cart = new Cart();
+			System.out.println("Sssssssssssssssssssss" + user.getAddress());
+			cart.setCartProductId(pid);
+			for (Product p : lp) {
+				cart.setCartPrice(p.getPrice());
+				// q=p.getPrice();
+				// q=p.getPrice()*qty;
+				cart.setCartImage(p.getImgname());
+				cart.setCartProductName(p.getPname());
+				cart.setCartQuantity(qty);  
+				cart.setCartProductName(p.getPname());
+			}
+			cart.setCartUserDetails(user);
+			cartDao.insert(cart);
+
 		}
+		else if(cartItems!=null)
+		{
+		
+			System.out.println("working");
+
+			Cart cart = new Cart();
+			System.out.println("nnnnnnnnnnnnnnnnnnnnn" + user.getAddress());
+			cart.setCartId(cartItems.getCartId());
+			cart.setCartProductId(pid);
+			for (Product p : lp) {
+				cart.setCartPrice(p.getPrice());
+				// q=p.getPrice();
+				// q=p.getPrice()*qty;
+				cart.setCartImage(p.getImgname());
+				cart.setCartProductName(p.getPname());
+				cart.setCartQuantity(qty);
+				cart.setCartProductName(p.getPname());
+			}
+			cart.setCartUserDetails(user);
+			cartDao.updateCart(cart);;
+		}
+		
+		mv.addObject("cdetail", cartDao.findCartById(user.getId()));
+		// mv.addObject("total",q);
+		List<Category> c = categoryDao.getAllCat();
+		mv.addObject("obj", c);
+		mv.setViewName("cart");
 		return mv;
+
+	
 
 	}
 
@@ -176,5 +238,15 @@ public class CartController {
 	@RequestMapping("/thank")
 	public ModelAndView thank() {
 		return new ModelAndView("thank");
+	}
+	
+	@RequestMapping("/fetchAll")
+	public ModelAndView fetch()
+	{
+		List<Cart> ll=cartDao.getAll();
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("cdetail",ll);
+		mv.setViewName("cart");
+		return mv;
 	}
 }

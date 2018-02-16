@@ -20,7 +20,7 @@
 	<br>
 	<br>
 
-	<form action="adminadd">
+	<form action="${pageContext.request.contextPath}/signin">
 		<input type="submit" value="Go Back" />
 	</form>
 

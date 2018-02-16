@@ -158,8 +158,8 @@ body {
 											Details</a></li>
 
 								</ul></li>
-							<li><a href="${ pageContext.request.contextPath}/cart"><i
-									class="fas fa-shopping-cart">My Cart</i></a></li>
+							<li><a href="${ pageContext.request.contextPath}/fetchAll">
+							<i class="fa fa-shopping-cart">My Cart</i></a></li>
 							<%-- <li><a href="${pageContext.request.contextPath}/index"><span class="glyphicon glyphicon-home"></span> Home</a></li> --%>
 							<li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
 						</ul>
@@ -170,8 +170,8 @@ body {
 							<li><a>Welcome :
 									${pageContext.request.userPrincipal.name} </a></li>
 							<li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
-							<li><a href="${ pageContext.request.contextPath}/cart"><i
-									class="fas fa-shopping-cart"></i>My Cart</a></li>
+							<li><a href="${ pageContext.request.contextPath}/cart">
+							<i class="fa fa-shopping-cart"></i>My Cart</a></li>
 						</ul>
 					</c:if>
 

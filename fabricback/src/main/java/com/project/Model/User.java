@@ -6,9 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity(name = "User")
-
+@Table(uniqueConstraints=@UniqueConstraint(columnNames="email"))
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,7 +20,7 @@ public class User {
 	@Column(name="pwd")
 	private String pwd;
 	
-	@Column(name = "email")
+	@Column(name="email")
 	private String email;
 	@Column(name = "phone")
 	private String phone;

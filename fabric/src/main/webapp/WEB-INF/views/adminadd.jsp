@@ -75,8 +75,7 @@
 						<%--  <%@include file="supplier.jsp" %> --%>
 						<div class="container">
 							<form
-								action="${pageContext.request.contextPath}/admin/insertData"
-								method="post">
+								action="${pageContext.request.contextPath}/admin/insertData">
 
 								SUPPLIERID : <input type="number" name="sid" required><br>
 								<br> SUPPLIERNAME : <input type="text" name="sname"

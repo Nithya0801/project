@@ -10,7 +10,12 @@
 	<%@include file="header.jsp"%>
 	<br>
 	<br>
-	<br> Deleted Successfully
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	 Deleted Successfully
 
 	<form action="${pageContext.request.contextPath}/admin/adminadd">
 		<input type="submit" value="Go Back" />

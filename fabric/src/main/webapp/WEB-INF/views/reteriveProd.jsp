@@ -34,6 +34,7 @@
 						<th>Description</th>
 						<th>Stock</th>
 						<th>Price</th>
+						<th>Category</th>
 						<th>Image</th>
 						<th colspan="3">Action</th>
 					</tr>
@@ -64,6 +65,7 @@ for(Product p:lp)
 							<td>${l.desc}</td>
 							<td>${l.stock}</td>
 							<td>${l.price }</td>
+							<td>${l.category.cname }</td>
 							<td><img src="../resources/${l.imgname}" width="42"
 								height="42" />
 							<td>
