@@ -8,6 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 
 
@@ -17,25 +22,34 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-/*	@NotBlank(message = "Please enter Name!")*/
+    @NotBlank(message = "Please enter Name!")
 	@Column(name = "name")
 	private String name;
+    @NotBlank(message = "Please enter Password!")
 	@Column(name="pwd")
 	private String pwd;
-	
+    @NotBlank(message = "Please enter Email!")
+    @Email
 	@Column(name="email")
 	private String email;
+	@NotBlank(message = "Please enter your phoneNumber.")
+    @Size(min = 10, message = "Your phone must contain 10 numbers")
 	@Column(name = "phone")
 	private String phone;
+	
+	 @NotBlank(message = "Please enter Address!")
+	
 	@Column(name = "address")
 	private String address;
+	 
+	 @NotBlank(message = "Please enter Country!")
 	@Column(name = "country")
 	private String country;
 	
 	@Column(name="enabled")
 	private String enabled;
 	
-	public String getEnabled() {
+	public String getEnabled() { 
 		return enabled;
 	}
 

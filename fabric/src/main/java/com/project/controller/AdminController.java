@@ -111,7 +111,7 @@ public class AdminController {
 	// Category Controller
 
 	@RequestMapping(value={"/admin/insertCatData"})
-	public ModelAndView insertSupp(HttpServletRequest request) {
+	public String insertSupp(HttpServletRequest request) {
 		String option = request.getParameter("option");
 		if (option.equalsIgnoreCase("insert")) {
 			int cid = Integer.parseInt(request.getParameter("cid"));
@@ -122,11 +122,11 @@ public class AdminController {
 
 			boolean b = categoryDao.insertCategory(category);
 			if (b)
-				return new ModelAndView("suc");
+				return "redirect:adminadd";
 			else
-				return new ModelAndView("error");
+				return "redirect:error";
 		} else
-			return new ModelAndView();
+			return null;
 
 	}
 
@@ -174,7 +174,7 @@ public class AdminController {
 
 	// Product Controller
 	@RequestMapping("/product")
-	public ModelAndView productPage(HttpServletRequest request) {
+	public ModelAndView productPage(HttpServletRequest request,Model model) {
 		List<Category> lc = categoryDao.getAllCat();
 
 		List<String> categoryName = new ArrayList<String>();
@@ -196,9 +196,11 @@ public class AdminController {
 
 		System.out.println(supplierName);
 		request.getSession().setAttribute("supplierName", supplierName);
-
+		model.addAttribute("product",new Product());
+		
 		return new ModelAndView("product");
 	}
+
 
 	@RequestMapping(value = { "/admin/insertProdData" }, method = RequestMethod.POST)
 	public String insertProduct(HttpServletRequest request, @RequestParam("file") MultipartFile file) {

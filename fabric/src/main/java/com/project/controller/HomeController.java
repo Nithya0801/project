@@ -4,14 +4,18 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -93,15 +97,17 @@ public class HomeController {
 	 * mv.getModelMap().put("categories", categoryDao.getAllCat()); return mv; }
 	 */
 
-	@RequestMapping("/register")
-	public ModelAndView register() {
-		return new ModelAndView("register");
+	@RequestMapping(value="/register",method=RequestMethod.GET)
+	public String register(Model model) {
+		System.out.println("invoked   Get");
+		model.addAttribute("user",new User());
+		return "register";
 	}
 
-	@RequestMapping("/store")
-	public ModelAndView save(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/register",method=RequestMethod.POST)
+	public ModelAndView save(@Valid @ModelAttribute("user") User user,BindingResult result,HttpServletRequest request, HttpServletResponse response) {
 
-		String n = request.getParameter("un");
+		/*String n = request.getParameter("un");
 		String p = request.getParameter("pwd");
 		String addr = request.getParameter("addr");
 		String mail = request.getParameter("mail");
@@ -125,6 +131,23 @@ public class HomeController {
 		}
 		// return new ModelAndView("redirect:/viewemp");//will redirect to
 		// viewemp request mapping
+	}*/
+		System.out.println("invoked  Post");
+		ModelAndView mv=new ModelAndView();
+	if(result.hasErrors())
+	{
+		System.out.println("error detected...");
+		mv.setViewName("register");
+	}
+	else
+	{
+		System.out.println("No error");
+		user.setEnabled("false");
+		userDao.addUser(user);
+		mv.setViewName("suc");
+	}
+	
+	return mv;
 	}
 
 	@RequestMapping("/index")

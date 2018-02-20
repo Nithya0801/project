@@ -4,7 +4,7 @@
 <%@page import="java.util.*"%>
 <%@page import="com.project.Model.*"%>
 
-
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <body>
 
 	<%@page import="com.project.Model.User"%>
@@ -27,19 +27,18 @@
 
 				<div class="tab-content">
 					<div id="home" class="tab-pane fade in active">
-						<form
+						<form:form
 							action="${pageContext.request.contextPath}/admin/insertProdData"
-							method="post" enctype="multipart/form-data">
+							method="post" enctype="multipart/form-data" modelAttribute="product">
 
 							<%
 								List<Supplier> suppliers = (List<Supplier>) request.getAttribute("suppliers");
 								List<Category> category = (List<Category>) request.getAttribute("categories");
 							%>
 
-							Product Name : <input type="text" name="pname" required /><br>
-							<br> Product Description : <input type="text" name="desc"
-								required /><br> <br> Product Price : <input
-								type="number" name="price" required /><br> <br>
+							Product Name : <input type="text"  name="pname" required /><br>
+							<br> Product Description : <input type="text" name="desc" required /><br> <br>
+							 Product Price : <input	type="number" name="price" required /><br> <br>
 							Product Stock : <input type="number" name="stock" required /><br>
 							<br> Category List:<select name="cat" required>
 								<option>-----Category List----</option>
@@ -62,11 +61,11 @@
 								<option value="<%=s.getSid()%>"><%=s.getSname()%></option>
 								<%
 									}
-								%>--%>
+								%>
 							</select><br> Image File: <input type="file" name="file" required />
 							<br> <input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" /> <input type="submit" value="insert" />
-						</form>
+						</form:form>
 					</div>
 					<div id="menu2" class="tab-pane fade">
 						<%@include file="category.jsp"%>
